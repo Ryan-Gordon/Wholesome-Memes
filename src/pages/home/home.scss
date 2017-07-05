@@ -1,3 +1,61 @@
-page-home {
+page-posts {
+  .content {
+    background-color: #f4f4f7;
+  }
+  .posts-load-spinner {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
+    * {
+      stroke: color($colors, primary);
+    }
+  }
+
+  .posts-page-navbar {
+    .toolbar-title-md {
+      margin-left: -25px;
+    }
+  }
+
+  ion-infinite-scroll .infinite-loading-spinner {
+    * {
+      stroke: color($colors, primary);
+    }
+  }
+
+  .post-title {
+    text-align: center;
+  }
+
+  .post-card-content {
+      &:active{
+        background-color: #f9f9f9;
+      }
+  }
+
+  .post-author {
+    position: relative;
+    top: 5px;
+  }
+
+  .score-icon {
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+  }
+
+  .side-menu {
+    .menu-go-button {
+      width: 65%;
+      margin: 5px auto;
+    }
+    .title.title-ios {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
 }

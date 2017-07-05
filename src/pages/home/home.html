@@ -1,14 +1,54 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="yell">
     <ion-title>
-      Ionic Blank
+      Wholesome Memes
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-content #postsList padding>
+
+  <ion-spinner *ngIf="!loadCompleted" name="crescent" class="posts-load-spinner"></ion-spinner>
+
+
+  <!-- Card for 1 wholesome meme -->
+  <ion-card *ngFor="let post of posts">
+    <!-- might want to change this, opens the post but may prevent some touch actions on the card itself -->
+    <ion-card-content (click)="readPost(post)" class="post-card-content">
+
+      <ion-card-title class="post-title">{{post.title}}</ion-card-title>
+      <!-- The meme itself -->
+      <img *ngIf="getPostImage(post)" [src]="getPostImage(post)" (error)="setImageError(post)">
+      <a class="post-author">
+        {{'/r/' + post.subreddit}}, by {{post.author}}
+      </a>
+    </ion-card-content>
+    <ion-row>
+      <ion-col center text-center>
+        <ion-note>
+          <ion-icon name="ios-arrow-up-outline" class="score-icon"></ion-icon>
+          <span>{{post.score}}</span>
+        </ion-note>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          {{post.created_utc }}
+        </ion-note>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small color="primary" (click)="goToComments(post)">
+          <ion-icon name="ios-text-outline"></ion-icon>
+          <div>{{post.num_comments}}</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <!-- Infinite scroll , used to load more memes without cause a full page refresh
+        only activated when we reach the end of the page -->
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content color="yell">
+      loadingSpinner="crescent"
+      loadingText="Loading more wholesome memes..">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
